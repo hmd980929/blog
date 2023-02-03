@@ -1,0 +1,1337 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/tiger.ico">
+  <link rel="icon" href="/blog/img/tiger.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#9fa19d">
+  <meta name="author" content="Colin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Object方法Object.prototype.constructor返回创建实例对象的 [Object](https:&#x2F;&#x2F;developer.mozilla.org&#x2F;zh-CN&#x2F;docs&#x2F;Web&#x2F;JavaScript&#x2F;Reference&#x2F;Global_Objects&#x2F;Object) 构造函数的引用。注意，此属性的值是对函数本身的引用，而不是一个包含函数名称的字符串。对原始类型来说，如1，tru">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript-Object">
+<meta property="og:url" content="https://web.hanmingda.top.com/blog/2022/08/03/JS/Object/index.html">
+<meta property="og:site_name" content="Colin&#39;s Blog">
+<meta property="og:description" content="Object方法Object.prototype.constructor返回创建实例对象的 [Object](https:&#x2F;&#x2F;developer.mozilla.org&#x2F;zh-CN&#x2F;docs&#x2F;Web&#x2F;JavaScript&#x2F;Reference&#x2F;Global_Objects&#x2F;Object) 构造函数的引用。注意，此属性的值是对函数本身的引用，而不是一个包含函数名称的字符串。对原始类型来说，如1，tru">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-03T05:59:06.150Z">
+<meta property="article:modified_time" content="2022-08-03T06:02:59.651Z">
+<meta property="article:author" content="Colin">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JavaScript-Object - Colin&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"web.hanmingda.top.com","root":"/blog/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"eopOTztyzVfS6A0wAoyT6Ygz-gzGzoHsz","app_key":"mT3xquiKA9CUtute8SzdIN1d","server_url":"https://eopotzty.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Colin&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaScript-Object"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Colin
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-03 13:59" pubdate>
+          2022年8月3日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          24k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          198 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript-Object</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h1><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Object-prototype-constructor"><a href="#Object-prototype-constructor" class="headerlink" title="Object.prototype.constructor"></a>Object.prototype.constructor</h3><p>返回创建实例对象的 <code>[Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)</code> 构造函数的引用。注意，此属性的值是对函数本身的引用，而不是一个包含函数名称的字符串。对原始类型来说，如<code>1</code>，<code>true</code>和<code>&quot;test&quot;</code>，该值只可读。</p>
+<ul>
+<li>语法 <ul>
+<li>obj.constructor</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> o = &#123;&#125;;<br>o.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Object</span>; <span class="hljs-comment">// true</span><br><br><span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>;<br>o.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Object</span>; <span class="hljs-comment">// true</span><br><br><span class="hljs-keyword">var</span> a = [];<br>a.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Array</span>; <span class="hljs-comment">// true</span><br><br><span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>;<br>a.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Array</span> <span class="hljs-comment">// true</span><br><br><span class="hljs-keyword">var</span> n = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Number</span>(<span class="hljs-number">3</span>);<br>n.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Number</span>; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h3><p><code>**Object.assign()**</code> 方法用于将所有可枚举属性的值从一个或多个源对象分配到目标对象。它将返回目标对象。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.assign(target, …sources)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><p><strong>target</strong> </p>
+<ul>
+<li>目标对象。</li>
+</ul>
+</li>
+<li><p><strong>sources</strong> </p>
+<ul>
+<li>源对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>目标对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> target = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> &#125;;<br><span class="hljs-keyword">const</span> source = &#123; <span class="hljs-attr">b</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">c</span>: <span class="hljs-number">5</span> &#125;;<br><br><span class="hljs-keyword">const</span> returnedTarget = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(target, source);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(target);<br><span class="hljs-comment">// expected output: Object &#123; a: 1, b: 4, c: 5 &#125;</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(returnedTarget);<br><span class="hljs-comment">// expected output: Object &#123; a: 1, b: 4, c: 5 &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h3><p><code>**Object.create()**</code>方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。 （请打开浏览器控制台以查看运行结果。）</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.create(proto，[propertiesObject])</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><p><strong>proto</strong> </p>
+<ul>
+<li>新创建对象的原型对象。</li>
+</ul>
+</li>
+<li><p><strong>propertiesObject</strong> </p>
+<ul>
+<li>可选。需要传入一个对象，该对象的属性类型参照<code>[Object.defineProperties()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)</code>的第二个参数。如果该参数被指定且不为 <code>[undefined](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code>，该传入对象的自有可枚举属性(即其自身定义的属性，而不是其原型链上的枚举属性)将为新创建的对象添加指定的属性值和对应的属性描述符。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>一个新对象，带着指定的原型对象和属性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> person = &#123;<br>  <span class="hljs-attr">isHuman</span>: <span class="hljs-literal">false</span>,<br>  <span class="hljs-attr">printIntroduction</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`My name is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>. Am I human? <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.isHuman&#125;</span>`</span>);<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> me = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(person);<br><br>me.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;Matthew&#x27;</span>; <span class="hljs-comment">// &quot;name&quot; is a property set on &quot;me&quot;, but not on &quot;person&quot;</span><br>me.<span class="hljs-property">isHuman</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// inherited properties can be overwritten</span><br><br>me.<span class="hljs-title function_">printIntroduction</span>();<br><span class="hljs-comment">// expected output: &quot;My name is Matthew. Am I human? true&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-defineProperties"><a href="#Object-defineProperties" class="headerlink" title="Object.defineProperties()"></a>Object.defineProperties()</h3><p><code>**Object.defineProperties()**</code> 方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。</p>
+<ul>
+<li>语法 <ul>
+<li>Object.defineProperties(obj, props)</li>
+<li>参数 <ul>
+<li><p><strong>obj</strong> </p>
+<ul>
+<li>在其上定义或修改属性的对象。</li>
+</ul>
+</li>
+<li><p><strong>props</strong> </p>
+<ul>
+<li>要定义其可枚举属性或修改的属性描述符的对象。对象中存在的属性描述符主要有两种：数据描述符和访问器描述符（更多详情，请参阅<code>[Object.defineProperty()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)</code>）。描述符具有以下键： <ul>
+<li><strong>configurable</strong> <ul>
+<li><code>true</code> 只有该属性描述符的类型可以被改变并且该属性可以从对应对象中删除。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>**默认为 **<code>**false**</code></p>
+<pre><code class="hljs">        - **enumerable** 
+           - `true` 只有在枚举相应对象上的属性时该属性显现。
+</code></pre>
+<p>**默认为 **<code>**false**</code></p>
+<pre><code class="hljs">        - **value** 
+           - 与属性关联的值。可以是任何有效的JavaScript值（数字，对象，函数等）。
+</code></pre>
+<p><strong>默认为 <strong><code>[**undefined**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code></strong>.</strong></p>
+<pre><code class="hljs">        - **writable** 
+           - `true`只有与该属性相关联的值被[assignment operator](https://developer.mozilla.org/zh-CN/docs/conflicting/Web/JavaScript/Reference/Operators_8d54701de06af40a7c984517cbe87b3e)改变时。
+</code></pre>
+<p>**默认为 **<code>**false**</code></p>
+<pre><code class="hljs">        - **get** 
+           - 作为该属性的 getter 函数，如果没有 getter 则为`[undefined](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)`。函数返回值将被用作属性的值。
+</code></pre>
+<p>**默认为 **<code>[**undefined**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code></p>
+<pre><code class="hljs">        - **set** 
+           - 作为属性的 setter 函数，如果没有 setter 则为`[undefined](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)`。函数将仅接受参数赋值给该属性的新值。
+</code></pre>
+<p>**默认为 **<code>[**undefined**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code></p>
+<ul>
+<li>返回值 <ul>
+<li>传递给函数的对象。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123;&#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperties</span>(obj, &#123;<br>  <span class="hljs-string">&#x27;property1&#x27;</span>: &#123;<br>    <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span><br>  &#125;,<br>  <span class="hljs-string">&#x27;property2&#x27;</span>: &#123;<br>    <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;Hello&#x27;</span>,<br>    <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span><br>  &#125;<br>  <span class="hljs-comment">// etc. etc.</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h3><p><code>**Object.defineProperty()**</code> 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.defineProperty(obj, prop, descriptor)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><p><strong>obj</strong> </p>
+<ul>
+<li>要定义属性的对象。</li>
+</ul>
+</li>
+<li><p><strong>prop</strong> </p>
+<ul>
+<li>要定义或修改的属性的名称或 <code>[Symbol](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol)</code> 。</li>
+</ul>
+</li>
+<li><p><strong>descriptor</strong> </p>
+<ul>
+<li>要定义或修改的属性描述符。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>被传递给函数的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> object1 = &#123;&#125;;<br><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(object1, <span class="hljs-string">&#x27;property1&#x27;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>,<br>  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span><br>&#125;);<br><br>object1.<span class="hljs-property">property1</span> = <span class="hljs-number">77</span>;<br><span class="hljs-comment">// throws an error in strict mode</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object1.<span class="hljs-property">property1</span>);<br><span class="hljs-comment">// expected output: 42</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-entries"><a href="#Object-entries" class="headerlink" title="Object.entries()"></a>Object.entries()</h3><p><code>**Object.entries()**</code>方法返回一个给定对象自身可枚举属性的键值对数组，其排列与使用 <code>[for...in](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in)</code> 循环遍历该对象时返回的顺序一致（区别在于 for-in 循环还会枚举原型链中的属性）。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.entries(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>可以返回其可枚举属性的键值对的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>给定对象自身可枚举属性的键值对数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript">democonst obj = &#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-attr">baz</span>: <span class="hljs-number">42</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(obj)); <span class="hljs-comment">// [ [&#x27;foo&#x27;, &#x27;bar&#x27;], [&#x27;baz&#x27;, 42] ]</span><br><br><span class="hljs-comment">// array like object</span><br><span class="hljs-keyword">const</span> obj = &#123; <span class="hljs-number">0</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(obj)); <span class="hljs-comment">// [ [&#x27;0&#x27;, &#x27;a&#x27;], [&#x27;1&#x27;, &#x27;b&#x27;], [&#x27;2&#x27;, &#x27;c&#x27;] ]</span><br><br><span class="hljs-comment">// array like object with random key ordering</span><br><span class="hljs-keyword">const</span> anObj = &#123; <span class="hljs-number">100</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">7</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(anObj)); <span class="hljs-comment">// [ [&#x27;2&#x27;, &#x27;b&#x27;], [&#x27;7&#x27;, &#x27;c&#x27;], [&#x27;100&#x27;, &#x27;a&#x27;] ]</span><br><br><span class="hljs-comment">// getFoo is property which isn&#x27;t enumerable</span><br><span class="hljs-keyword">const</span> myObj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(&#123;&#125;, &#123; <span class="hljs-attr">getFoo</span>: &#123; <span class="hljs-title function_">value</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span>; &#125; &#125; &#125;);<br>myObj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;bar&#x27;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(myObj)); <span class="hljs-comment">// [ [&#x27;foo&#x27;, &#x27;bar&#x27;] ]</span><br><br><span class="hljs-comment">// non-object argument will be coerced to an object</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(<span class="hljs-string">&#x27;foo&#x27;</span>)); <span class="hljs-comment">// [ [&#x27;0&#x27;, &#x27;f&#x27;], [&#x27;1&#x27;, &#x27;o&#x27;], [&#x27;2&#x27;, &#x27;o&#x27;] ]</span><br><br><span class="hljs-comment">// iterate through key-value gracefully</span><br><span class="hljs-keyword">const</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">7</span>, <span class="hljs-attr">c</span>: <span class="hljs-number">9</span> &#125;;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [key, value] <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(obj)) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span> <span class="hljs-subst">$&#123;value&#125;</span>`</span>); <span class="hljs-comment">// &quot;a 5&quot;, &quot;b 7&quot;, &quot;c 9&quot;</span><br>&#125;<br><br><span class="hljs-comment">// Or, using array extras</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(obj).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">[key, value]</span>) =&gt;</span> &#123;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span> <span class="hljs-subst">$&#123;value&#125;</span>`</span>); <span class="hljs-comment">// &quot;a 5&quot;, &quot;b 7&quot;, &quot;c 9&quot;</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-freeze"><a href="#Object-freeze" class="headerlink" title="Object.freeze()"></a>Object.freeze()</h3><p><code>**Object.freeze()**</code> 方法可以<strong>冻结</strong>一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。<code>freeze()</code> 返回和传入的参数相同的对象。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.freeze(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>要被冻结的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>被冻结的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123;<br>  <span class="hljs-attr">prop</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;&#125;,<br>  <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span><br>&#125;;<br><br><span class="hljs-comment">// 新的属性会被添加, 已存在的属性可能</span><br><span class="hljs-comment">// 会被修改或移除</span><br>obj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;baz&#x27;</span>;<br>obj.<span class="hljs-property">lumpy</span> = <span class="hljs-string">&#x27;woof&#x27;</span>;<br><span class="hljs-keyword">delete</span> obj.<span class="hljs-property">prop</span>;<br><br><span class="hljs-comment">// 作为参数传递的对象与返回的对象都被冻结</span><br><span class="hljs-comment">// 所以不必保存返回的对象（因为两个对象全等）</span><br><span class="hljs-keyword">var</span> o = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(obj);<br><br>o === obj; <span class="hljs-comment">// true</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(obj); <span class="hljs-comment">// === true</span><br><br><span class="hljs-comment">// 现在任何改变都会失效</span><br>obj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;quux&#x27;</span>; <span class="hljs-comment">// 静默地不做任何事</span><br><span class="hljs-comment">// 静默地不添加此属性</span><br>obj.<span class="hljs-property">quaxxor</span> = <span class="hljs-string">&#x27;the friendly duck&#x27;</span>;<br><br><span class="hljs-comment">// 在严格模式，如此行为将抛出 TypeErrors</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params"></span>)&#123;<br>  <span class="hljs-string">&#x27;use strict&#x27;</span>;<br>  obj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;sparky&#x27;</span>; <span class="hljs-comment">// throws a TypeError</span><br>  <span class="hljs-keyword">delete</span> obj.<span class="hljs-property">quaxxor</span>; <span class="hljs-comment">// 返回true，因为quaxxor属性从来未被添加</span><br>  obj.<span class="hljs-property">sparky</span> = <span class="hljs-string">&#x27;arf&#x27;</span>; <span class="hljs-comment">// throws a TypeError</span><br>&#125;<br><br><span class="hljs-title function_">fail</span>();<br><br><span class="hljs-comment">// 试图通过 Object.defineProperty 更改属性</span><br><span class="hljs-comment">// 下面两个语句都会抛出 TypeError.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, <span class="hljs-string">&#x27;ohai&#x27;</span>, &#123; <span class="hljs-attr">value</span>: <span class="hljs-number">17</span> &#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, <span class="hljs-string">&#x27;foo&#x27;</span>, &#123; <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;eit&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 也不能更改原型</span><br><span class="hljs-comment">// 下面两个语句都会抛出 TypeError.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(obj, &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">20</span> &#125;)<br>obj.<span class="hljs-property">__proto__</span> = &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">20</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-fromEntries"><a href="#Object-fromEntries" class="headerlink" title="Object.fromEntries()"></a>Object.fromEntries()</h3><p><code>**Object.fromEntries()**</code> 方法把键值对列表转换为一个对象。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.fromEntries(iterable);</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>iterable</strong> <ul>
+<li>类似 <code>[Array](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)</code> 、 <code>[Map](https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Map)</code> 或者其它实现了<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol">可迭代协议</a>的可迭代对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>一个由该迭代对象条目提供对应属性的新对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> entries = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([<br>  [<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;bar&#x27;</span>],<br>  [<span class="hljs-string">&#x27;baz&#x27;</span>, <span class="hljs-number">42</span>]<br>]);<br><br><span class="hljs-keyword">const</span> obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">fromEntries</span>(entries);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj);<br><span class="hljs-comment">// expected output: Object &#123; foo: &quot;bar&quot;, baz: 42 &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-getOwnPropertyDescriptor"><a href="#Object-getOwnPropertyDescriptor" class="headerlink" title="Object.getOwnPropertyDescriptor()"></a>Object.getOwnPropertyDescriptor()</h3><p><code>**Object.getOwnPropertyDescriptor()**</code> 方法返回指定对象上一个自有属性对应的属性描述符。（自有属性指的是直接赋予该对象的属性，不需要从原型链上进行查找的属性）</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.getOwnPropertyDescriptor(obj, prop)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><p><strong>obj</strong> </p>
+<ul>
+<li>需要查找的目标对象</li>
+</ul>
+</li>
+<li><p><strong>prop</strong> </p>
+<ul>
+<li>目标对象内属性名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>如果指定的属性存在于对象上，则返回其属性描述符对象（property descriptor），否则返回 <code>[undefined](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> o, d;<br><br>o = &#123; <span class="hljs-keyword">get</span> <span class="hljs-title function_">foo</span>() &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">17</span>; &#125; &#125;;<br>d = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(o, <span class="hljs-string">&quot;foo&quot;</span>);<br><span class="hljs-comment">// d &#123;</span><br><span class="hljs-comment">//   configurable: true,</span><br><span class="hljs-comment">//   enumerable: true,</span><br><span class="hljs-comment">//   get: /*the getter function*/,</span><br><span class="hljs-comment">//   set: undefined</span><br><span class="hljs-comment">// &#125;</span><br><br>o = &#123; <span class="hljs-attr">bar</span>: <span class="hljs-number">42</span> &#125;;<br>d = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(o, <span class="hljs-string">&quot;bar&quot;</span>);<br><span class="hljs-comment">// d &#123;</span><br><span class="hljs-comment">//   configurable: true,</span><br><span class="hljs-comment">//   enumerable: true,</span><br><span class="hljs-comment">//   value: 42,</span><br><span class="hljs-comment">//   writable: true</span><br><span class="hljs-comment">// &#125;</span><br><br>o = &#123;&#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(o, <span class="hljs-string">&quot;baz&quot;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-number">8675309</span>,<br>  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,<br>  <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span><br>&#125;);<br>d = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(o, <span class="hljs-string">&quot;baz&quot;</span>);<br><span class="hljs-comment">// d &#123;</span><br><span class="hljs-comment">//   value: 8675309,</span><br><span class="hljs-comment">//   writable: false,</span><br><span class="hljs-comment">//   enumerable: false,</span><br><span class="hljs-comment">//   configurable: false</span><br><span class="hljs-comment">// &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors()"></a>Object.getOwnPropertyDescriptors()</h3><p><code>**Object.getOwnPropertyDescriptors()**</code> 方法用来获取一个对象的所有自身属性的描述符。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.getOwnPropertyDescriptors(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>任意对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>所指定对象的所有自身属性的描述符，如果没有任何自身属性，则返回空对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<br>  <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(obj),<br>  <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptors</span>(obj)<br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a>Object.getOwnPropertyNames()</h3><p><code>**Object.getOwnPropertyNames()**</code>方法返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.getOwnPropertyNames(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>一个对象，其自身的可枚举和不可枚举属性的名称被返回。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>在给定对象上找到的自身属性对应的字符串数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(arr).<span class="hljs-title function_">sort</span>()); <span class="hljs-comment">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;length&quot;]</span><br><br><span class="hljs-comment">// 类数组对象</span><br><span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-number">0</span>: <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&quot;c&quot;</span>&#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(obj).<span class="hljs-title function_">sort</span>()); <span class="hljs-comment">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]</span><br><br><span class="hljs-comment">// 使用Array.forEach输出属性名和属性值</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(obj).<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">val, idx, array</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(val + <span class="hljs-string">&quot; -&gt; &quot;</span> + obj[val]);<br>&#125;);<br><span class="hljs-comment">// 输出</span><br><span class="hljs-comment">// 0 -&gt; a</span><br><span class="hljs-comment">// 1 -&gt; b</span><br><span class="hljs-comment">// 2 -&gt; c</span><br><br><span class="hljs-comment">//不可枚举属性</span><br><span class="hljs-keyword">var</span> my_obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(&#123;&#125;, &#123;<br>  <span class="hljs-attr">getFoo</span>: &#123;<br>    <span class="hljs-attr">value</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span>; &#125;,<br>    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span><br>  &#125;<br>&#125;);<br>my_obj.<span class="hljs-property">foo</span> = <span class="hljs-number">1</span>;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(my_obj).<span class="hljs-title function_">sort</span>()); <span class="hljs-comment">// [&quot;foo&quot;, &quot;getFoo&quot;]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-getOwnPropertySymbols"><a href="#Object-getOwnPropertySymbols" class="headerlink" title="Object.getOwnPropertySymbols()"></a>Object.getOwnPropertySymbols()</h3><p><code>**Object.getOwnPropertySymbols()**</code> 方法返回一个给定对象自身的所有 Symbol 属性的数组。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.getOwnPropertySymbols(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>要返回 Symbol 属性的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>在给定对象自身上找到的所有 Symbol 属性的数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123;&#125;;<br><span class="hljs-keyword">var</span> a = <span class="hljs-title class_">Symbol</span>(<span class="hljs-string">&quot;a&quot;</span>);<br><span class="hljs-keyword">var</span> b = <span class="hljs-title class_">Symbol</span>.<span class="hljs-title function_">for</span>(<span class="hljs-string">&quot;b&quot;</span>);<br><br>obj[a] = <span class="hljs-string">&quot;localSymbol&quot;</span>;<br>obj[b] = <span class="hljs-string">&quot;globalSymbol&quot;</span>;<br><br><span class="hljs-keyword">var</span> objectSymbols = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertySymbols</span>(obj);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(objectSymbols.<span class="hljs-property">length</span>); <span class="hljs-comment">// 2</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(objectSymbols)         <span class="hljs-comment">// [Symbol(a), Symbol(b)]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(objectSymbols[<span class="hljs-number">0</span>])      <span class="hljs-comment">// Symbol(a)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h3><p><code>**Object.getPrototypeOf()**</code> 方法返回指定对象的原型（内部<code>[[Prototype]]</code>属性的值）。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.getPrototypeOf(object)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>要返回其原型的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>给定对象的原型。如果没有继承属性，则返回 <code>[null](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null)</code> 。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> proto = &#123;&#125;;<br><span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(proto);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(obj) === proto; <span class="hljs-comment">// true</span><br><br><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/a/</span>;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(reg) === <span class="hljs-title class_">RegExp</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-hasOwnProperty"><a href="#Object-prototype-hasOwnProperty" class="headerlink" title="Object.prototype.hasOwnProperty()"></a>Object.prototype.hasOwnProperty()</h3><p><code>**hasOwnProperty()**</code> 方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性（也就是，是否有指定的键）。</p>
+<ul>
+<li>语法 <ul>
+<li><p>obj.hasOwnProperty(prop)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>prop</strong> <ul>
+<li>要检测的属性的 <code>[String](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)</code> 字符串形式表示的名称，或者 <code>[Symbol](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol)</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>用来判断某个对象是否含有指定的属性的布尔值 <code>[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">o = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br>o.<span class="hljs-title function_">hasOwnProperty</span>(<span class="hljs-string">&#x27;prop&#x27;</span>); <span class="hljs-comment">// 返回 false</span><br>o.<span class="hljs-property">prop</span> = <span class="hljs-string">&#x27;exists&#x27;</span>;<br>o.<span class="hljs-title function_">hasOwnProperty</span>(<span class="hljs-string">&#x27;prop&#x27;</span>); <span class="hljs-comment">// 返回 true</span><br><span class="hljs-keyword">delete</span> o.<span class="hljs-property">prop</span>;<br>o.<span class="hljs-title function_">hasOwnProperty</span>(<span class="hljs-string">&#x27;prop&#x27;</span>); <span class="hljs-comment">// 返回 false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is()"></a>Object.is()</h3><p><code>**Object.is()**</code> 方法判断两个值是否为<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness">同一个值</a>。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.is(value1, value2);</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><p><strong>value1</strong> </p>
+<ul>
+<li>被比较的第一个值。</li>
+</ul>
+</li>
+<li><p><strong>value2</strong> </p>
+<ul>
+<li>被比较的第二个值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>一个 <code>[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)</code> 类型标示两个参数是否是同一个值。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;foo&#x27;</span>);     <span class="hljs-comment">// true</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(<span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">window</span>);   <span class="hljs-comment">// true</span><br><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;bar&#x27;</span>);     <span class="hljs-comment">// false</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>([], []);           <span class="hljs-comment">// false</span><br><br><span class="hljs-keyword">var</span> foo = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> &#125;;<br><span class="hljs-keyword">var</span> bar = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(foo, foo);         <span class="hljs-comment">// true</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(foo, bar);         <span class="hljs-comment">// false</span><br><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);       <span class="hljs-comment">// true</span><br><br><span class="hljs-comment">// 特例</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">0</span>);            <span class="hljs-comment">// false</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(<span class="hljs-number">0</span>, +<span class="hljs-number">0</span>);            <span class="hljs-comment">// true</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">is</span>(-<span class="hljs-number">0</span>, -<span class="hljs-number">0</span>);           <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-isExtensible"><a href="#Object-isExtensible" class="headerlink" title="Object.isExtensible()"></a>Object.isExtensible()</h3><p><code>**Object.isExtensible()**</code> 方法判断一个对象是否是可扩展的（是否可以在它上面添加新的属性）。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.isExtensible(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>需要检测的对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>表示给定对象是否可扩展的一个<code>[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Boolean)</code> 。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 新对象默认是可扩展的.</span><br><span class="hljs-keyword">var</span> empty = &#123;&#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(empty); <span class="hljs-comment">// === true</span><br><br><span class="hljs-comment">// ...可以变的不可扩展.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(empty);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(empty); <span class="hljs-comment">// === false</span><br><br><span class="hljs-comment">// 密封对象是不可扩展的.</span><br><span class="hljs-keyword">var</span> sealed = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(&#123;&#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(sealed); <span class="hljs-comment">// === false</span><br><br><span class="hljs-comment">// 冻结对象也是不可扩展.</span><br><span class="hljs-keyword">var</span> frozen = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(&#123;&#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(frozen); <span class="hljs-comment">// === false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-isFrozen"><a href="#Object-isFrozen" class="headerlink" title="Object.isFrozen()"></a>Object.isFrozen()</h3><p><code>**Object.isFrozen()**</code>方法判断一个对象是否被<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">冻结</a>。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.isFrozen(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>被检测的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>表示给定对象是否被冻结的<code>[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 一个对象默认是可扩展的,所以它也是非冻结的.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(&#123;&#125;); <span class="hljs-comment">// === false</span><br><br><span class="hljs-comment">// 一个不可扩展的空对象同时也是一个冻结对象.</span><br><span class="hljs-keyword">var</span> vacuouslyFrozen = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(&#123;&#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(vacuouslyFrozen) <span class="hljs-comment">//=== true;</span><br><br><span class="hljs-comment">// 一个非空对象默认也是非冻结的.</span><br><span class="hljs-keyword">var</span> oneProp = &#123; <span class="hljs-attr">p</span>: <span class="hljs-number">42</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(oneProp) <span class="hljs-comment">//=== false</span><br><br><span class="hljs-comment">// 让这个对象变的不可扩展,并不意味着这个对象变成了冻结对象,</span><br><span class="hljs-comment">// 因为p属性仍然是可以配置的(而且可写的).</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(oneProp);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(oneProp) <span class="hljs-comment">//=== false</span><br><br><span class="hljs-comment">// 此时,如果删除了这个属性,则它会成为一个冻结对象.</span><br><span class="hljs-keyword">delete</span> oneProp.<span class="hljs-property">p</span>;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(oneProp) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// 一个不可扩展的对象,拥有一个不可写但可配置的属性,则它仍然是非冻结的.</span><br><span class="hljs-keyword">var</span> nonWritable = &#123; <span class="hljs-attr">e</span>: <span class="hljs-string">&quot;plep&quot;</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(nonWritable);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(nonWritable, <span class="hljs-string">&quot;e&quot;</span>, &#123; <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span> &#125;); <span class="hljs-comment">// 变得不可写</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(nonWritable) <span class="hljs-comment">//=== false</span><br><br><span class="hljs-comment">// 把这个属性改为不可配置,会让这个对象成为冻结对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(nonWritable, <span class="hljs-string">&quot;e&quot;</span>, &#123; <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span> &#125;); <span class="hljs-comment">// 变得不可配置</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(nonWritable) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// 一个不可扩展的对象,拥有一个不可配置但可写的属性,则它仍然是非冻结的.</span><br><span class="hljs-keyword">var</span> nonConfigurable = &#123; <span class="hljs-attr">release</span>: <span class="hljs-string">&quot;the kraken!&quot;</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(nonConfigurable);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(nonConfigurable, <span class="hljs-string">&quot;release&quot;</span>, &#123; <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span> &#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(nonConfigurable) <span class="hljs-comment">//=== false</span><br><br><span class="hljs-comment">// 把这个属性改为不可写,会让这个对象成为冻结对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(nonConfigurable, <span class="hljs-string">&quot;release&quot;</span>, &#123; <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span> &#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(nonConfigurable) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// 一个不可扩展的对象,值拥有一个访问器属性,则它仍然是非冻结的.</span><br><span class="hljs-keyword">var</span> accessor = &#123; <span class="hljs-keyword">get</span> <span class="hljs-title function_">food</span>() &#123; <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;yum&quot;</span>; &#125; &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(accessor);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(accessor) <span class="hljs-comment">//=== false</span><br><br><span class="hljs-comment">// ...但把这个属性改为不可配置,会让这个对象成为冻结对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(accessor, <span class="hljs-string">&quot;food&quot;</span>, &#123; <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span> &#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(accessor) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// 使用Object.freeze是冻结一个对象最方便的方法.</span><br><span class="hljs-keyword">var</span> frozen = &#123; <span class="hljs-number">1</span>: <span class="hljs-number">81</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(frozen) <span class="hljs-comment">//=== false</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(frozen);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(frozen) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// 一个冻结对象也是一个密封对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(frozen) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// 当然,更是一个不可扩展的对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(frozen) <span class="hljs-comment">//=== false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-isPrototypeOf"><a href="#Object-prototype-isPrototypeOf" class="headerlink" title="Object.prototype.isPrototypeOf()"></a>Object.prototype.isPrototypeOf()</h3><p><code>**isPrototypeOf()**</code> 方法用于测试一个对象是否存在于另一个对象的原型链上。</p>
+<ul>
+<li>语法 <ul>
+<li><p>prototypeObj.isPrototypeOf(object)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>object</strong> <ul>
+<li>在该对象的原型链上搜寻</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li><code>[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)</code>，表示调用对象是否在另一个对象的原型链上。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123;&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Bar</span>(<span class="hljs-params"></span>) &#123;&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Baz</span>(<span class="hljs-params"></span>) &#123;&#125;<br><br><span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);<br><span class="hljs-title class_">Baz</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);<br><br><span class="hljs-keyword">var</span> baz = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Baz</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Baz</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>(baz)); <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>(baz)); <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>(baz)); <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>(baz)); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-isSealed"><a href="#Object-isSealed" class="headerlink" title="Object.isSealed()"></a>Object.isSealed()</h3><p><code>**Object.isSealed()**</code> 方法判断一个对象是否被密封。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.isSealed(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>要被检查的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>表示给定对象是否被密封的一个<code>[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)</code> 。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 新建的对象默认不是密封的.</span><br><span class="hljs-keyword">var</span> empty = &#123;&#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(empty); <span class="hljs-comment">// === false</span><br><br><span class="hljs-comment">// 如果你把一个空对象变的不可扩展，则它同时也会变成个密封对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(empty);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(empty); <span class="hljs-comment">// === true</span><br><br><span class="hljs-comment">// 但如果这个对象不是空对象，则它不会变成密封对象,因为密封对象的所有自身属性必须是不可配置的.</span><br><span class="hljs-keyword">var</span> hasProp = &#123; <span class="hljs-attr">fee</span>: <span class="hljs-string">&quot;fie foe fum&quot;</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(hasProp);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(hasProp); <span class="hljs-comment">// === false</span><br><br><span class="hljs-comment">// 如果把这个属性变的不可配置，则这个属性也就成了密封对象.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(hasProp, <span class="hljs-string">&#x27;fee&#x27;</span>, &#123;<br>  <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span><br>&#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(hasProp); <span class="hljs-comment">// === true</span><br><br><span class="hljs-comment">// 最简单的方法来生成一个密封对象，当然是使用Object.seal.</span><br><span class="hljs-keyword">var</span> sealed = &#123;&#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(sealed);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(sealed); <span class="hljs-comment">// === true</span><br><br><span class="hljs-comment">// 一个密封对象同时也是不可扩展的.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(sealed); <span class="hljs-comment">// === false</span><br><br><span class="hljs-comment">// 一个密封对象也可以是一个冻结对象,但不是必须的.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(sealed); <span class="hljs-comment">// === true ，所有的属性都是不可写的</span><br><span class="hljs-keyword">var</span> s2 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(&#123; <span class="hljs-attr">p</span>: <span class="hljs-number">3</span> &#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(s2); <span class="hljs-comment">// === false， 属性&quot;p&quot;可写</span><br><br><span class="hljs-keyword">var</span> s3 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(&#123; <span class="hljs-keyword">get</span> <span class="hljs-title function_">p</span>() &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; &#125; &#125;);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(s3); <span class="hljs-comment">// === true ，访问器属性不考虑可写不可写,只考虑是否可配置</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a>Object.keys()</h3><p><code>**Object.keys()**</code> 方法会返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致 。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.keys(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>要返回其枚举自身属性的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>一个表示给定对象的所有可枚举属性的字符串数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// simple array</span><br><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(arr)); <span class="hljs-comment">// console: [&#x27;0&#x27;, &#x27;1&#x27;, &#x27;2&#x27;]</span><br><br><span class="hljs-comment">// array like object</span><br><span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-number">0</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(obj)); <span class="hljs-comment">// console: [&#x27;0&#x27;, &#x27;1&#x27;, &#x27;2&#x27;]</span><br><br><span class="hljs-comment">// array like object with random key ordering</span><br><span class="hljs-keyword">var</span> anObj = &#123; <span class="hljs-number">100</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">7</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(anObj)); <span class="hljs-comment">// console: [&#x27;2&#x27;, &#x27;7&#x27;, &#x27;100&#x27;]</span><br><br><span class="hljs-comment">// getFoo is a property which isn&#x27;t enumerable</span><br><span class="hljs-keyword">var</span> myObj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(&#123;&#125;, &#123;<br>  <span class="hljs-attr">getFoo</span>: &#123;<br>    <span class="hljs-attr">value</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span>; &#125;<br>  &#125;<br>&#125;);<br>myObj.<span class="hljs-property">foo</span> = <span class="hljs-number">1</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(myObj)); <span class="hljs-comment">// console: [&#x27;foo&#x27;]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-preventExtensions"><a href="#Object-preventExtensions" class="headerlink" title="Object.preventExtensions()"></a>Object.preventExtensions()</h3><p><code>**Object.preventExtensions()**</code>方法让一个对象变的不可扩展，也就是永远不能再添加新的属性。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.preventExtensions(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>将要变得不可扩展的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>已经不可扩展的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Object.preventExtensions将原对象变的不可扩展,并且返回原对象.</span><br><span class="hljs-keyword">var</span> obj = &#123;&#125;;<br><span class="hljs-keyword">var</span> obj2 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(obj);<br>obj === obj2;  <span class="hljs-comment">// true</span><br><br><span class="hljs-comment">// 字面量方式定义的对象默认是可扩展的.</span><br><span class="hljs-keyword">var</span> empty = &#123;&#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(empty) <span class="hljs-comment">//=== true</span><br><br><span class="hljs-comment">// ...但可以改变.</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(empty);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(empty) <span class="hljs-comment">//=== false</span><br><br><span class="hljs-comment">// 使用Object.defineProperty方法为一个不可扩展的对象添加新属性会抛出异常.</span><br><span class="hljs-keyword">var</span> nonExtensible = &#123; <span class="hljs-attr">removable</span>: <span class="hljs-literal">true</span> &#125;;<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(nonExtensible);<br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(nonExtensible, <span class="hljs-string">&quot;new&quot;</span>, &#123; <span class="hljs-attr">value</span>: <span class="hljs-number">8675309</span> &#125;); <span class="hljs-comment">// 抛出TypeError异常</span><br><br><span class="hljs-comment">// 在严格模式中,为一个不可扩展对象的新属性赋值会抛出TypeError异常.</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params"></span>)<br>&#123;<br>  <span class="hljs-string">&quot;use strict&quot;</span>;<br>  nonExtensible.<span class="hljs-property">newProperty</span> = <span class="hljs-string">&quot;FAIL&quot;</span>; <span class="hljs-comment">// throws a TypeError</span><br>&#125;<br><span class="hljs-title function_">fail</span>();<br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-propertyIsEnumerable"><a href="#Object-prototype-propertyIsEnumerable" class="headerlink" title="Object.prototype.propertyIsEnumerable()"></a>Object.prototype.propertyIsEnumerable()</h3><p><code>**propertyIsEnumerable()**</code> 方法返回一个布尔值，表示指定的属性是否可枚举。</p>
+<ul>
+<li>语法 <ul>
+<li><p>obj.propertyIsEnumerable(prop)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>prop</strong> <ul>
+<li>需要测试的属性名。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>用来表示指定的属性名是否可枚举的<code>[布尔值](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> object1 = &#123;&#125;;<br><span class="hljs-keyword">const</span> array1 = [];<br>object1.<span class="hljs-property">property1</span> = <span class="hljs-number">42</span>;<br>array1[<span class="hljs-number">0</span>] = <span class="hljs-number">42</span>;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object1.<span class="hljs-title function_">propertyIsEnumerable</span>(<span class="hljs-string">&#x27;property1&#x27;</span>));<br><span class="hljs-comment">// expected output: true</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(array1.<span class="hljs-title function_">propertyIsEnumerable</span>(<span class="hljs-number">0</span>));<br><span class="hljs-comment">// expected output: true</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(array1.<span class="hljs-title function_">propertyIsEnumerable</span>(<span class="hljs-string">&#x27;length&#x27;</span>));<br><span class="hljs-comment">// expected output: false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-seal"><a href="#Object-seal" class="headerlink" title="Object.seal()"></a>Object.seal()</h3><p><code>**Object.seal()**</code>方法封闭一个对象，阻止添加新属性并将所有现有属性标记为不可配置。当前属性的值只要原来是可写的就可以改变。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.seal(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>将要被密封的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>被密封的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123;<br>  <span class="hljs-attr">prop</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;&#125;,<br>  <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span><br>&#125;;<br><br><span class="hljs-comment">// 可以添加新的属性</span><br><span class="hljs-comment">// 可以更改或删除现有的属性</span><br>obj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;baz&#x27;</span>;<br>obj.<span class="hljs-property">lumpy</span> = <span class="hljs-string">&#x27;woof&#x27;</span>;<br><span class="hljs-keyword">delete</span> obj.<span class="hljs-property">prop</span>;<br><br><span class="hljs-keyword">var</span> o = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">seal</span>(obj);<br><br>o === obj; <span class="hljs-comment">// true</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(obj); <span class="hljs-comment">// === true</span><br><br><span class="hljs-comment">// 仍然可以修改密封对象的属性值</span><br>obj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;quux&#x27;</span>;<br><br><br><span class="hljs-comment">// 但是你不能将属性重新定义成为访问器属性</span><br><span class="hljs-comment">// 反之亦然</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, <span class="hljs-string">&#x27;foo&#x27;</span>, &#123;<br>  <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;g&#x27;</span>; &#125;<br>&#125;); <span class="hljs-comment">// throws a TypeError</span><br><br><span class="hljs-comment">// 除了属性值以外的任何变化，都会失败.</span><br>obj.<span class="hljs-property">quaxxor</span> = <span class="hljs-string">&#x27;the friendly duck&#x27;</span>;<br><span class="hljs-comment">// 添加属性将会失败</span><br><span class="hljs-keyword">delete</span> obj.<span class="hljs-property">foo</span>;<br><span class="hljs-comment">// 删除属性将会失败</span><br><br><span class="hljs-comment">// 在严格模式下，这样的尝试将会抛出错误</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-string">&#x27;use strict&#x27;</span>;<br>  <span class="hljs-keyword">delete</span> obj.<span class="hljs-property">foo</span>; <span class="hljs-comment">// throws a TypeError</span><br>  obj.<span class="hljs-property">sparky</span> = <span class="hljs-string">&#x27;arf&#x27;</span>; <span class="hljs-comment">// throws a TypeError</span><br>&#125;<br><span class="hljs-title function_">fail</span>();<br><br><span class="hljs-comment">// 通过Object.defineProperty添加属性将会报错</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, <span class="hljs-string">&#x27;ohai&#x27;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-number">17</span><br>&#125;); <span class="hljs-comment">// throws a TypeError</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, <span class="hljs-string">&#x27;foo&#x27;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;eit&#x27;</span><br>&#125;); <span class="hljs-comment">// 通过Object.defineProperty修改属性值</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-setPrototypeOf"><a href="#Object-setPrototypeOf" class="headerlink" title="Object.setPrototypeOf()"></a>Object.setPrototypeOf()</h3><p><strong>Object.setPrototypeOf()</strong> 方法设置一个指定的对象的原型 ( 即, 内部[[Prototype]]属性）到另一个对象或  <code>[null](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null)</code>。</p>
+<ul>
+<li>语法 <ul>
+<li>Object.setPrototypeOf(obj, prototype)</li>
+<li>参数 <ul>
+<li><p><strong>obj</strong> </p>
+<ul>
+<li>要设置其原型的对象。.</li>
+</ul>
+</li>
+<li><p><strong>prototype</strong> </p>
+<ul>
+<li>该对象的新原型(一个对象 或 null).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Mammal</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">isMammal</span> = <span class="hljs-string">&#x27;yes&#x27;</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">MammalSpecies</span>(<span class="hljs-params">sMammalSpecies</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">species</span> = sMammalSpecies;<br>&#125;<br><br><span class="hljs-title class_">MammalSpecies</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Mammal</span>();<br><span class="hljs-title class_">MammalSpecies</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-title class_">MammalSpecies</span>;<br><br><span class="hljs-keyword">var</span> oCat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MammalSpecies</span>(<span class="hljs-string">&#x27;Felis&#x27;</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(oCat.<span class="hljs-property">isMammal</span>);<br><span class="hljs-comment">// &#x27;yes&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Animal</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">breathing</span> = <span class="hljs-string">&#x27;yes&#x27;</span>;<br>&#125;<br><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">appendChain</span>(oCat, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Animal</span>());<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(oCat.<span class="hljs-property">breathing</span>);<br><span class="hljs-comment">// &#x27;yes&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-toLocaleString"><a href="#Object-prototype-toLocaleString" class="headerlink" title="Object.prototype.toLocaleString()"></a>Object.prototype.toLocaleString()</h3><p><code>**toLocaleString()**</code> 方法返回一个该对象的字符串表示。此方法被用于派生对象为了特定语言环境的目的（locale-specific purposes）而重载使用。</p>
+<ul>
+<li>语法 <ul>
+<li>obj.toLocaleString();</li>
+<li>返回值 <ul>
+<li>表示对象的字符串。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Object-prototype-toSource"><a href="#Object-prototype-toSource" class="headerlink" title="Object.prototype.toSource()"></a>Object.prototype.toSource()</h3><p><code>**toSource()**</code>方法返回一个表示对象源代码的字符串。</p>
+<ul>
+<li>语法 <ul>
+<li>Object.toSource(); obj.toSource()</li>
+<li>返回值 <ul>
+<li>一个表示对象的源代码的字符串。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Object-prototype-toString"><a href="#Object-prototype-toString" class="headerlink" title="Object.prototype.toString()"></a>Object.prototype.toString()</h3><p><code>**toString()**</code> 方法返回一个表示该对象的字符串。</p>
+<ul>
+<li>语法 <ul>
+<li>obj.toString()</li>
+<li>返回值 <ul>
+<li>一个表示该对象的字符串。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Dog</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>&#125;<br><br><span class="hljs-keyword">const</span> dog1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>(<span class="hljs-string">&#x27;Gabby&#x27;</span>);<br><br><span class="hljs-title class_">Dog</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">dogToString</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>;<br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(dog1.<span class="hljs-title function_">toString</span>());<br><span class="hljs-comment">// expected output: &quot;Gabby&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-valueOf"><a href="#Object-prototype-valueOf" class="headerlink" title="Object.prototype.valueOf()"></a>Object.prototype.valueOf()</h3><p><code>**valueOf()**</code> 方法返回指定对象的原始值。</p>
+<ul>
+<li>语法 <ul>
+<li>object.valueOf()</li>
+<li>返回值 <ul>
+<li>返回值为该对象的原始值。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Array：返回数组对象本身</span><br><span class="hljs-keyword">var</span> array = [<span class="hljs-string">&quot;ABC&quot;</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">12</span>, -<span class="hljs-number">5</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(array.<span class="hljs-title function_">valueOf</span>() === array);   <span class="hljs-comment">// true</span><br><br><span class="hljs-comment">// Date：当前时间距1970年1月1日午夜的毫秒数</span><br><span class="hljs-keyword">var</span> date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2013</span>, <span class="hljs-number">7</span>, <span class="hljs-number">18</span>, <span class="hljs-number">23</span>, <span class="hljs-number">11</span>, <span class="hljs-number">59</span>, <span class="hljs-number">230</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(date.<span class="hljs-title function_">valueOf</span>());   <span class="hljs-comment">// 1376838719230</span><br><br><span class="hljs-comment">// Number：返回数字值</span><br><span class="hljs-keyword">var</span> num =  <span class="hljs-number">15.26540</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num.<span class="hljs-title function_">valueOf</span>());   <span class="hljs-comment">// 15.2654</span><br><br><span class="hljs-comment">// 布尔：返回布尔值true或false</span><br><span class="hljs-keyword">var</span> bool = <span class="hljs-literal">true</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(bool.<span class="hljs-title function_">valueOf</span>() === bool);   <span class="hljs-comment">// true</span><br><br><span class="hljs-comment">// new一个Boolean对象</span><br><span class="hljs-keyword">var</span> newBool = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Boolean</span>(<span class="hljs-literal">true</span>);<br><span class="hljs-comment">// valueOf()返回的是true，两者的值相等</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newBool.<span class="hljs-title function_">valueOf</span>() == newBool);   <span class="hljs-comment">// true</span><br><span class="hljs-comment">// 但是不全等，两者类型不相等，前者是boolean类型，后者是object类型</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newBool.<span class="hljs-title function_">valueOf</span>() === newBool);   <span class="hljs-comment">// false</span><br><br><span class="hljs-comment">// Function：返回函数本身</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>)&#123;&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( foo.<span class="hljs-title function_">valueOf</span>() === foo );   <span class="hljs-comment">// true</span><br><span class="hljs-keyword">var</span> foo2 =  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Function</span>(<span class="hljs-string">&quot;x&quot;</span>, <span class="hljs-string">&quot;y&quot;</span>, <span class="hljs-string">&quot;return x + y;&quot;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( foo2.<span class="hljs-title function_">valueOf</span>() );<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">ƒ anonymous(x,y</span><br><span class="hljs-comment">) &#123;</span><br><span class="hljs-comment">return x + y;</span><br><span class="hljs-comment">&#125;</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-comment">// Object：返回对象本身</span><br><span class="hljs-keyword">var</span> obj = &#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">18</span>&#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( obj.<span class="hljs-title function_">valueOf</span>() === obj );   <span class="hljs-comment">// true</span><br><br><span class="hljs-comment">// String：返回字符串值</span><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;http://www.xyz.com&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( str.<span class="hljs-title function_">valueOf</span>() === str );   <span class="hljs-comment">// true</span><br><br><span class="hljs-comment">// new一个字符串对象</span><br><span class="hljs-keyword">var</span> str2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(<span class="hljs-string">&quot;http://www.xyz.com&quot;</span>);<br><span class="hljs-comment">// 两者的值相等，但不全等，因为类型不同，前者为string类型，后者为object类型</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( str2.<span class="hljs-title function_">valueOf</span>() === str2 );   <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Object-values"><a href="#Object-values" class="headerlink" title="Object.values()"></a>Object.values()</h3><p><code>**Object.values()**</code>方法返回一个给定对象自身的所有可枚举属性值的数组，值的顺序与使用<code>[for...in](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in)</code>循环的顺序相同 ( 区别在于 for-in 循环枚举原型链中的属性 )。</p>
+<ul>
+<li>语法 <ul>
+<li><p>Object.values(obj)</p>
+</li>
+<li><p>参数 </p>
+<ul>
+<li><strong>obj</strong> <ul>
+<li>被返回可枚举属性值的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>返回值 </p>
+<ul>
+<li>一个包含对象自身的所有可枚举属性值的数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-attr">baz</span>: <span class="hljs-number">42</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">values</span>(obj)); <span class="hljs-comment">// [&#x27;bar&#x27;, 42]</span><br><br><span class="hljs-comment">// array like object</span><br><span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-number">0</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">values</span>(obj)); <span class="hljs-comment">// [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]</span><br><br><span class="hljs-comment">// array like object with random key ordering</span><br><span class="hljs-comment">// when we use numeric keys, the value returned in a numerical order according to the keys</span><br><span class="hljs-keyword">var</span> an_obj = &#123; <span class="hljs-number">100</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">7</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">values</span>(an_obj)); <span class="hljs-comment">// [&#x27;b&#x27;, &#x27;c&#x27;, &#x27;a&#x27;]</span><br><br><span class="hljs-comment">// getFoo is property which isn&#x27;t enumerable</span><br><span class="hljs-keyword">var</span> my_obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(&#123;&#125;, &#123; <span class="hljs-attr">getFoo</span>: &#123; <span class="hljs-attr">value</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">foo</span>; &#125; &#125; &#125;);<br>my_obj.<span class="hljs-property">foo</span> = <span class="hljs-string">&#x27;bar&#x27;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">values</span>(my_obj)); <span class="hljs-comment">// [&#x27;bar&#x27;]</span><br><br><span class="hljs-comment">// non-object argument will be coerced to an object</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">values</span>(<span class="hljs-string">&#x27;foo&#x27;</span>)); <span class="hljs-comment">// [&#x27;f&#x27;, &#x27;o&#x27;, &#x27;o&#x27;]</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/JavaScript/">#JavaScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaScript-Object</div>
+      <div>https://web.hanmingda.top.com/blog/2022/08/03/JS/Object/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Colin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月3日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2022/08/03/JS/Symbol/" title="JavaScript-Symbol">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript-Symbol</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/08/03/JS/Array/" title="JavaScript-Array">
+                        <span class="hidden-mobile">JavaScript-Array</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div>Design By Colin</div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/blog/js/leancloud.js" ></script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
